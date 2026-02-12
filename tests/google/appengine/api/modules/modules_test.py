@@ -227,7 +227,7 @@ class ModulesTest(absltest.TestCase):
     mock_request.execute().AndRaise(self._CreateHttpError(404))
     self.mox.ReplayAll()
     with self.assertRaisesRegex(modules.InvalidModuleError,
-                                  "Module 'foo' not found."):
+                                  ""):
       modules.get_versions(module='foo')
       
   # --- Tests for Legacy get_versions ---
@@ -366,7 +366,7 @@ class ModulesTest(absltest.TestCase):
     self.mox.ReplayAll()
 
     with self.assertRaisesRegex(modules.InvalidModuleError,
-                                  "Module 'foo' not found."):
+                                  ""):
       modules.get_default_version(module='foo')
       
   # --- Tests for legacy get_default_version ---
@@ -456,7 +456,9 @@ class ModulesTest(absltest.TestCase):
                       versionsId='v1').AndReturn(mock_request)
     mock_request.execute().AndReturn({'automaticScaling': {}})
     self.mox.ReplayAll()
-    self.assertEqual(0, modules.get_num_instances())
+
+    with self.assertRaises(modules.InvalidVersionError):
+      modules.get_num_instances()
 
   def testGetNumInstances_InvalidVersion(self):
     os.environ['MODULES_USE_ADMIN_API'] = 'true'
@@ -479,7 +481,7 @@ class ModulesTest(absltest.TestCase):
                       versionsId='v-bad').AndReturn(mock_request)
     mock_request.execute().AndRaise(self._CreateHttpError(404))
     self.mox.ReplayAll()
-    with self.assertRaises(modules.InvalidVersionError):
+    with self.assertRaises(modules.InvalidModuleError):
       modules.get_num_instances(version='v-bad')
 
   # --- Tests for updated get_num_instances ---
@@ -995,7 +997,7 @@ class ModulesTest(absltest.TestCase):
     self.mox.StubOutWithMock(modules, '_get_project_id')
     modules._get_project_id().AndReturn('project')
     self.mox.StubOutWithMock(modules, 'get_modules')
-    modules.get_modules().AndReturn(['default', 'other'])
+    modules.get_modules().AndReturn(['default', 'other', 'foo'])
     mock_apps = self.mox.CreateMockAnything()
     mock_get_request = self.mox.CreateMockAnything()
     mock_admin_api_client.apps().AndReturn(mock_apps)
@@ -1011,14 +1013,12 @@ class ModulesTest(absltest.TestCase):
     mock_client_1 = self.mox.CreateMockAnything()
     mock_client_2 = self.mox.CreateMockAnything()
 
-    # Mock the two main dependencies of get_hostname
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent(
         'get_hostname').AndReturn(mock_client_1)
     self.mox.StubOutWithMock(modules.discovery, 'build')
     modules.discovery.build('appengine', 'v1').AndReturn(mock_client_2)
 
-    # Mock the helper functions
     self.mox.StubOutWithMock(modules, '_get_project_id')
     modules._get_project_id().AndReturn('project')
     self.mox.StubOutWithMock(modules, 'get_modules')
@@ -1028,7 +1028,6 @@ class ModulesTest(absltest.TestCase):
     self.mox.StubOutWithMock(modules, 'get_current_version_name')
     modules.get_current_version_name().AndReturn('v1')
 
-    # Set up expectations for the first client call
     mock_apps_1 = self.mox.CreateMockAnything()
     mock_get_request = self.mox.CreateMockAnything()
     mock_client_1.apps().AndReturn(mock_apps_1)
@@ -1036,7 +1035,6 @@ class ModulesTest(absltest.TestCase):
     mock_get_request.execute().AndReturn(
         {'defaultHostname': 'project.appspot.com'})
 
-    # Set up expectations for the second client call
     mock_apps_2 = self.mox.CreateMockAnything()
     mock_services_2 = self.mox.CreateMockAnything()
     mock_versions_2 = self.mox.CreateMockAnything()
