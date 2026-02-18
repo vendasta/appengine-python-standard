@@ -84,7 +84,7 @@ class TransientError(Error):
   """A transient error was encountered, retry the operation."""
 
 def _has_opted_in():
-  return (os.environ.get('MODULES_USE_ADMIN_API', 'false').lower() == 'true')
+  return (os.environ.get('APPENGINE_MODULES_USE_ADMIN_API', 'false').lower() == 'true')
 
 def _raise_error(e):
   # Translate HTTP errors to the exceptions expected by the API

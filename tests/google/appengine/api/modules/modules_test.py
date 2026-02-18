@@ -135,7 +135,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated get_modules ---
 
   def testGetModules(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_modules').AndReturn(mock_client)
@@ -154,7 +154,7 @@ class ModulesTest(absltest.TestCase):
     self.assertEqual(['module1', 'default'], modules.get_modules())
 
   def testGetModules_InvalidProject(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_modules').AndReturn(mock_client)
@@ -187,7 +187,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated get_versions ---
 
   def testGetVersions(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_versions').AndReturn(mock_client)
@@ -209,7 +209,7 @@ class ModulesTest(absltest.TestCase):
     self.assertEqual(['v1', 'v2'], modules.get_versions())
 
   def testGetVersions_InvalidModule(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_versions').AndReturn(mock_client)
@@ -272,7 +272,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated get_default_version ---
 
   def testGetDefaultVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
 
     mock_admin_api_client = self.mox.CreateMockAnything()
 
@@ -299,7 +299,7 @@ class ModulesTest(absltest.TestCase):
     self.assertEqual('v1', modules.get_default_version())
 
   def testGetDefaultVersion_Lexicographical(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_admin_api_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent(
@@ -320,7 +320,7 @@ class ModulesTest(absltest.TestCase):
 
 
   def testGetDefaultVersion_NoDefaultVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_admin_api_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent(
@@ -341,7 +341,7 @@ class ModulesTest(absltest.TestCase):
       modules.get_default_version()
 
   def testGetDefaultVersion_InvalidModule(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
 
     mock_admin_api_client = self.mox.CreateMockAnything()
 
@@ -409,7 +409,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated get_num_instances ---
 
   def testGetNumInstances(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_num_instances').AndReturn(mock_client)
@@ -434,7 +434,7 @@ class ModulesTest(absltest.TestCase):
     self.assertEqual(5, modules.get_num_instances())
 
   def testGetNumInstances_NoManualScaling(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_num_instances').AndReturn(mock_client)
@@ -461,7 +461,7 @@ class ModulesTest(absltest.TestCase):
       modules.get_num_instances()
 
   def testGetNumInstances_InvalidVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_num_instances').AndReturn(mock_client)
@@ -544,7 +544,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated set_num_instances---
 
   def testSetNumInstances(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('set_num_instances').AndReturn(mock_client)
@@ -573,12 +573,12 @@ class ModulesTest(absltest.TestCase):
     modules.set_num_instances(10)
 
   def testSetNumInstances_TypeError(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     with self.assertRaises(TypeError):
       modules.set_num_instances('not-an-int')
 
   def testSetNumInstances_InvalidInstancesError(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('set_num_instances').AndReturn(mock_client)
@@ -679,7 +679,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated start_version---
 
   def testStartVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('start_version').AndReturn(mock_client)
@@ -704,7 +704,7 @@ class ModulesTest(absltest.TestCase):
     modules.start_version('default', 'v1')
 
   def testStartVersion_InvalidVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('start_version').AndReturn(mock_client)
@@ -730,7 +730,7 @@ class ModulesTest(absltest.TestCase):
       modules.start_version('default', 'v-bad')
 
   def testStartVersionAsync_NoneArgs(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('start_version').AndReturn(mock_client)
@@ -814,7 +814,7 @@ class ModulesTest(absltest.TestCase):
   # --- Tests for updated stop_version---  
 
   def testStopVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('stop_version').AndReturn(mock_client)
@@ -843,7 +843,7 @@ class ModulesTest(absltest.TestCase):
     modules.stop_version()
 
   def testStopVersion_InvalidVersion(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('stop_version').AndReturn(mock_client)
@@ -871,7 +871,7 @@ class ModulesTest(absltest.TestCase):
       modules.stop_version(version='v-bad')
 
   def testStopVersion_TransientError(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('stop_version').AndReturn(mock_client)
@@ -956,7 +956,7 @@ class ModulesTest(absltest.TestCase):
     self.assertRaises(modules.TransientError, modules.stop_version)
 
   def testRaiseError_Generic(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent(mox.IsA(str)).AndReturn(mock_client)
@@ -989,7 +989,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_WithVersion_NoInstance(self):
     """Tests the simple case with an explicit module and version."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_admin_api_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent(
@@ -1009,7 +1009,7 @@ class ModulesTest(absltest.TestCase):
                      modules.get_hostname(module='foo', version='v2'))
 
   def testGetHostname_Instance_Success(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client_1 = self.mox.CreateMockAnything()
     mock_client_2 = self.mox.CreateMockAnything()
 
@@ -1055,7 +1055,7 @@ class ModulesTest(absltest.TestCase):
 
 
   def testGetHostname_Instance_NoManualScaling(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client_1 = self.mox.CreateMockAnything()
     mock_client_2 = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
@@ -1095,7 +1095,7 @@ class ModulesTest(absltest.TestCase):
       modules.get_hostname(instance='1')
 
   def testGetHostname_Instance_OutOfBounds(self):
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_api_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(google.auth, 'default')
     google.auth.default().AndReturn((None, 'project'))
@@ -1137,7 +1137,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_Instance_InvalidValue(self):
     """Tests instance request with an invalid non-integer instance value."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     with self.assertRaisesRegex(
         modules.InvalidInstancesError,
         'Instance must be a non-negative integer.'):
@@ -1145,7 +1145,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_NoVersion_VersionExistsOnTarget(self):
     """Tests no-version call where the current version exists on the target."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_hostname').AndReturn(mock_client)
@@ -1169,7 +1169,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_NoVersion_VersionDoesNotExistOnTarget(self):
     """Tests no-version call where the current version is not on the target."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_hostname').AndReturn(mock_client)
@@ -1193,7 +1193,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_LegacyApp_Success(self):
     """Tests a hostname request for a legacy app without engines."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     mock_client = self.mox.CreateMockAnything()
     self.mox.StubOutWithMock(modules, '_get_admin_api_client_with_useragent')
     modules._get_admin_api_client_with_useragent('get_hostname').AndReturn(mock_client)
@@ -1216,7 +1216,7 @@ class ModulesTest(absltest.TestCase):
 
   def testGetHostname_LegacyApp_WithInstance(self):
     """Tests a legacy app request with an invalid non-integer instance."""
-    os.environ['MODULES_USE_ADMIN_API'] = 'true'
+    os.environ['APPENGINE_MODULES_USE_ADMIN_API'] = 'true'
     with self.assertRaisesRegex(
         modules.InvalidInstancesError,
         'Instance must be a non-negative integer.'):
