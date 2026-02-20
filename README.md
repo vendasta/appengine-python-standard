@@ -1,4 +1,38 @@
-# Google App Engine bundled services SDK for Python 3
+# Google App Engine bundled services SDK for Python 3 (Vendasta Fork)
+
+> **This is a Vendasta fork** of [GoogleCloudPlatform/appengine-python-standard](https://github.com/GoogleCloudPlatform/appengine-python-standard).
+> The only change is widening the `urllib3` pin from `<2` to `<3` to allow urllib3 2.x,
+> which is needed to resolve HIGH CVEs in urllib3 1.x. See [upstream issue #121](https://github.com/GoogleCloudPlatform/appengine-python-standard/issues/121).
+>
+> If/when upstream merges a fix, this fork can be retired and consumers can switch back
+> to the upstream package.
+
+## Building and publishing a new release
+
+```bash
+# 1. Clone this repo and make changes
+git clone https://github.com/vendasta/appengine-python-standard.git
+cd appengine-python-standard
+
+# 2. Bump the version in setup.py (use .postN suffix to stay sortable after upstream)
+
+# 3. Build sdist and wheel
+python3 -m venv /tmp/aps-build
+source /tmp/aps-build/bin/activate
+pip install build twine keyrings.google-artifactregistry-auth
+python3 -m build . --sdist --wheel --outdir dist/
+
+# 4. Upload to Vendasta artifact registry
+python3 -m twine upload \
+  --repository-url=https://us-central1-python.pkg.dev/repcore-prod/python/ \
+  dist/*
+
+# 5. Verify
+pip install --index-url=https://us-central1-python.pkg.dev/repcore-prod/python/simple/ \
+  appengine-python-standard==<new-version>
+```
+
+---
 
 This is a release of the App Engine services SDK for Python 3.  It provides access to various services and API endpoints that were previously only available on the Python 2.7 runtime.
 
